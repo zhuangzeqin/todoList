@@ -1,8 +1,8 @@
 <template>
   <div v-for="(item,index) in list" :key="index">
-    <div>
+    <div class="item">
         <input type="checkbox" v-model="item.complete"/>{{ item.title }}
-        <button>删除</button>
+        <button @click="del(index,item)">删除</button>
     </div>
   </div>
 </template>
@@ -28,12 +28,37 @@ export default defineComponent({
         complete: false,
       },
     ]);
+    //删除任务
+    let del =(index,item)=>{
+      console.log(`删除任务:${index}${item.title}`)
+    }
     return {
       list,
+      del
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
+.item{
+  height: 35px;
+  line-height: 35px;
+  width: 160px;
+  position: relative;
+  cursor: pointer;
+  button{
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    display: none;
+    z-index: 99;
+  }
+  &:hover{
+    background: #ddd;
+    button{
+      display: block;
+    }
+  }
+}
 </style>
