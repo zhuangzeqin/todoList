@@ -15,7 +15,11 @@ export default defineComponent({
   setup(props, ctx) {
     let value = ref("");
     let enter = ()=>{
-      console.log(value.value)
+      // console.log(value.value)
+      //把输入框的输入的值传递给父组件
+      ctx.emit('addNewTodoItem',value.value)
+      //清空 输入框
+      value.value = ''
     }
     return {
       value,

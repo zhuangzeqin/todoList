@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
 import start from '../views/Start.vue'
 //定义了路由的配置数组
 //name:路由的名称
@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: '/home',
-    name: 'home',
+    name: 'Home',
      component: () => import('../views/HomeView.vue')
   },
   {

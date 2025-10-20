@@ -1,30 +1,43 @@
 import { createStore } from "vuex";
+import { LocalStorage } from "@/utils/storeUtil";
+//LocalStorage.set('userInfo', info); // 同步到本地存储
+//userInfo: LocalStorage.get('userInfo') || {},
 
 export default createStore({
   //定义所需要的状态，每个组件的数据共享
   state: {
     name: "jack",
-    list: [
-      {
-        title: "吃饭",
-        complete: false,
-      },
-      {
-        title: "睡觉",
-        complete: false,
-      },
-      {
-        title: "敲代码",
-        complete: true,
-      },
-    ],
+    list: [],
   },
   getters: {},
   //同步修改state,都是方法
   mutations: {
-    //第一个是state ,第二个是需要修改的值
-    setName(state, playLoad) {
-      state.name = playLoad;
+    // //第一个是state ,第二个是需要修改的值
+    // setName(state, playLoad) {
+    //   state.name = playLoad;
+    // },
+    initTodo(state) {
+      let temp = [
+        {
+          title: "吃饭",
+          complete: false,
+        },
+        {
+          title: "睡觉",
+          complete: false,
+        },
+        {
+          title: "敲代码",
+          complete: true,
+        },
+      ];
+
+      let todoList = LocalStorage.get("todoList") || temp;
+      state.list = todoList;
+    },
+
+    saveTodoList(state) {
+      LocalStorage.set("todoList", state.list);
     },
     //添加任务到列表里
     addTodo(state, item) {
@@ -37,7 +50,7 @@ export default createStore({
     //清除已完成
     clear(state, array) {
       //把过滤之后的数组传递进来（过滤已完成的任务）
-      state.list = playLoad;
+      state.list = array;
     },
   },
   //异步提交mutations （这里就可以发请求或定时器之类的）
